@@ -54,13 +54,13 @@ export default function Login() {
 
           <form onSubmit={handleSubmit} className="golden-login-form">
             <div className="golden-form-group">
-              <label className="golden-form-label" htmlFor="login-identifier">Identifier</label>
+              <label className="golden-form-label" htmlFor="login-identifier">Name</label>
               <div className="golden-input-wrapper">
                 <span className="golden-input-icon"><FiUser /></span>
                 <input
                   id="login-identifier"
                   type="text"
-                  placeholder="Email, name, registration number, or teacher ID"
+                  placeholder="Enter your name"
                   value={form.identifier}
                   onChange={(e) => setForm({ ...form, identifier: e.target.value })}
                   required
@@ -68,7 +68,6 @@ export default function Login() {
                   autoComplete="username"
                 />
               </div>
-              <div className="golden-form-note">Use email, name, registration number, or teacher ID to login.</div>
             </div>
 
             <div className="golden-form-group">
