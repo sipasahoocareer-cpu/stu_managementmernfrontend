@@ -1,0 +1,289 @@
+.footer {
+  position: relative;
+  margin-top: var(--space-3xl);
+  padding: var(--space-3xl) var(--space-xl) var(--space-xl);
+  overflow: hidden;
+  color: var(--color-text-secondary);
+  background:
+    linear-gradient(135deg, rgba(99, 102, 241, 0.08), transparent 32%),
+    linear-gradient(225deg, rgba(20, 184, 166, 0.1), transparent 34%),
+    var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.35fr) repeat(3, minmax(160px, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: start;
+}
+
+.footer-column {
+  min-width: 0;
+}
+
+.footer-brand {
+  max-width: 380px;
+}
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-text-primary);
+}
+
+.footer-logo-mark {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  color: #fff;
+  font-size: 22px;
+  border-radius: var(--radius-md);
+  background: var(--gradient-primary);
+  box-shadow: 0 14px 32px rgba(99, 102, 241, 0.28);
+}
+
+.footer-logo-title,
+.footer-logo-subtitle {
+  display: block;
+}
+
+.footer-logo-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.18rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+}
+
+.footer-logo-subtitle {
+  margin-top: 3px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-accent);
+}
+
+.footer-heading {
+  position: relative;
+  margin: 0 0 1rem;
+  padding-bottom: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.footer-heading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 38px;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-primary);
+}
+
+.footer-description {
+  margin: 1.1rem 0 0.85rem;
+  max-width: 36rem;
+  font-size: 0.94rem;
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+}
+
+.footer-tagline {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-accent);
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.16);
+  border-radius: var(--radius-full);
+}
+
+.footer-links {
+  display: grid;
+  gap: 0.65rem;
+  list-style: none;
+}
+
+.footer-links a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-secondary);
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.footer-links a::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin-right: 9px;
+  border-radius: var(--radius-full);
+  background: var(--color-border-strong);
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.footer-links a:hover {
+  color: var(--color-text-accent);
+  transform: translateX(3px);
+}
+
+.footer-links a:hover::before {
+  background: var(--color-accent-primary);
+  transform: scale(1.35);
+}
+
+.footer-info {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.footer-info p {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+  gap: 0.72rem;
+  margin: 0;
+  min-width: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.info-icon {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent-primary);
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.14);
+  border-radius: var(--radius-sm);
+}
+
+.footer-divider {
+  height: 1px;
+  margin: var(--space-2xl) 0 var(--space-lg);
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.24), transparent);
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.86rem;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.social-icon {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-accent);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.social-icon:hover {
+  color: #fff;
+  border-color: transparent;
+  background: var(--gradient-primary);
+  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.28);
+  transform: translateY(-3px);
+}
+
+.footer-legal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(209, 213, 219, 0.8);
+}
+
+.footer-legal a {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.footer-legal a:hover {
+  color: var(--color-text-accent);
+}
+
+.separator {
+  color: var(--color-border-strong);
+}
+
+@media (max-width: 980px) {
+  .footer-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    margin-top: var(--space-2xl);
+    padding: var(--space-2xl) var(--space-md) var(--space-lg);
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .footer-brand {
+    max-width: none;
+  }
+
+  .footer-bottom {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer-legal {
+    flex-wrap: wrap;
+    line-height: 1;
+  }
+}

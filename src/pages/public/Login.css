@@ -1,0 +1,201 @@
+.golden-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--header-height) + var(--space-2xl)) var(--space-lg) var(--space-2xl);
+  background:
+    linear-gradient(135deg, rgba(99, 102, 241, 0.14), transparent 34%),
+    linear-gradient(225deg, rgba(20, 184, 166, 0.12), transparent 34%),
+    var(--color-bg-secondary);
+}
+
+.golden-login-container {
+  width: min(460px, 100%);
+}
+
+.golden-login-card {
+  padding: var(--space-2xl);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(209, 213, 219, 0.9);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 60px rgba(31, 41, 55, 0.14);
+  backdrop-filter: blur(18px);
+}
+
+.golden-login-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.golden-login-mark {
+  width: 58px;
+  height: 58px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-md);
+  color: #fff;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-md);
+  box-shadow: 0 14px 28px rgba(99, 102, 241, 0.28);
+  font-size: 26px;
+}
+
+.golden-login-eyebrow {
+  margin: 0 0 6px;
+  color: var(--color-text-accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.golden-login-title {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: clamp(30px, 5vw, 42px);
+  font-weight: 850;
+}
+
+.golden-login-subtitle {
+  margin: var(--space-sm) 0 0;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}
+
+.golden-error {
+  margin-bottom: var(--space-lg);
+  padding: 12px 14px;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 650;
+  text-align: center;
+}
+
+.golden-login-form {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.golden-form-group {
+  display: grid;
+  gap: 9px;
+}
+
+.golden-form-label {
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.golden-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 15px;
+  background: var(--color-bg-primary);
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.golden-input-wrapper:focus-within {
+  border-color: var(--color-accent-primary);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+}
+
+.golden-input-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-accent);
+  font-size: 20px;
+}
+
+.golden-input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.golden-input::placeholder {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.golden-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  margin-top: var(--space-sm);
+  padding: 14px 28px;
+  color: #fff;
+  background: var(--gradient-primary);
+  border: 0;
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.28);
+  font-size: 15px;
+  font-weight: 800;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.golden-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(99, 102, 241, 0.34);
+}
+
+.golden-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.golden-back-link {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.golden-back-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-accent);
+  font-size: 14px;
+  font-weight: 750;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.golden-back-link a:hover {
+  color: var(--color-accent-secondary);
+  transform: translateX(-2px);
+}
+
+@media (max-width: 480px) {
+  .golden-login {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .golden-login-card {
+    padding: var(--space-xl);
+  }
+}

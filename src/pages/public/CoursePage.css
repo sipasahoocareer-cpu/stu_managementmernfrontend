@@ -1,0 +1,101 @@
+/* ============================================================
+   COURSE PAGE
+   ============================================================ */
+.course-page {}
+
+.course-hero {
+  position: relative;
+  padding: 120px 0 var(--space-3xl);
+  text-align: center;
+  overflow: hidden;
+}
+
+.course-hero-bg { position: absolute; inset: 0; z-index: 0; }
+
+.course-hero-orb {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,193,7,0.2) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(60px);
+}
+
+.course-hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.course-hero-emoji {
+  font-size: 72px;
+  animation: float 4s ease-in-out infinite;
+  line-height: 1;
+}
+
+.course-hero-title {
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 800;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.course-hero-desc {
+  font-size: 17px;
+  color: var(--color-text-secondary);
+  max-width: 580px;
+  line-height: 1.7;
+}
+
+/* Subjects */
+.subjects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-md);
+}
+
+.subject-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  border-left: 3px solid var(--sub-color, var(--color-accent-primary));
+  transition: all var(--transition-base);
+}
+
+.subject-card:hover {
+  transform: translateX(4px);
+  border-left-width: 4px;
+}
+
+.subject-icon {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.subject-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+/* Nav */
+.course-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
