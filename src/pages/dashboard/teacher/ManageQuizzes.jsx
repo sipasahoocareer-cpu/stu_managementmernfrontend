@@ -16,11 +16,7 @@ export default function ManageQuizzes() {
     setError('');
     try {
       const r = await listQuizzes();
-      const fetched = r.data?.data || [];
-      setQuizzes(fetched);
-      if (fetched.length > 0) {
-        handleSelectQuiz(fetched[0]);
-      }
+      setQuizzes(r.data?.data || []);
     } catch (err) {
       setError(err?.response?.data?.detail || 'Could not load quizzes.');
     } finally {
@@ -29,14 +25,9 @@ export default function ManageQuizzes() {
     }
   };
 
-  useEffect(() => {
-    loadQuizzes();
-  }, []);
+  useEffect(() => { loadQuizzes(); }, []);
 
-  const handleRefresh = () => {
-    setRefreshing(true);
-    loadQuizzes();
-  };
+  const handleRefresh = () => { setRefreshing(true); loadQuizzes(); };
 
   const handleSelectQuiz = async (quiz) => {
     setSelectedQuiz(quiz);
@@ -45,11 +36,9 @@ export default function ManageQuizzes() {
     setLoadingResults(true);
     try {
       const r = await viewQuizResults(quiz.id);
-      const subs = r.data?.results || [];
-      setResults(subs);
+      setResults(r.data?.results || []);
     } catch (err) {
-      const msg = err?.response?.data?.detail || err?.message || 'Could not load submissions.';
-      setResultsError(msg);
+      setResultsError(err?.response?.data?.detail || err?.message || 'Could not load submissions.');
     } finally {
       setLoadingResults(false);
     }
@@ -60,11 +49,8 @@ export default function ManageQuizzes() {
     setDeleting(true);
     try {
       await deleteQuiz(quizId);
-      setQuizzes((prev) => prev.filter((quiz) => quiz.id !== quizId));
-      if (selectedQuiz?.id === quizId) {
-        setSelectedQuiz(null);
-        setResults([]);
-      }
+      setQuizzes((prev) => prev.filter((q) => q.id !== quizId));
+      if (selectedQuiz?.id === quizId) { setSelectedQuiz(null); setResults([]); }
     } catch (err) {
       setError(err?.response?.data?.detail || 'Could not delete quiz.');
     } finally {
@@ -74,8 +60,7 @@ export default function ManageQuizzes() {
 
   const formatClass = (cn) => {
     if (!cn) return '';
-    if (cn === 'PGDCA') return 'PGDCA';
-    return `Class ${cn}`;
+    return cn === 'PGDCA' ? 'PGDCA' : `Class ${cn}`;
   };
 
   return (
@@ -83,20 +68,15 @@ export default function ManageQuizzes() {
       <div className="page-header">
         <div>
           <h1 className="page-title">📋 Teacher Quiz Review</h1>
-          <p className="page-subtitle">See student quiz submissions and delete quizzes if needed.</p>
+          <p className="page-subtitle">Only your quizzes are shown. Click Review to see student submissions.</p>
         </div>
         <button
           onClick={handleRefresh}
           disabled={refreshing}
           style={{
-            marginLeft: 'auto',
-            padding: '8px 16px',
-            background: '#6366f1',
-            color: 'white',
-            border: 'none',
-            borderRadius: '6px',
-            cursor: refreshing ? 'not-allowed' : 'pointer',
-            opacity: refreshing ? 0.6 : 1
+            marginLeft: 'auto', padding: '8px 16px', background: '#6366f1',
+            color: 'white', border: 'none', borderRadius: '6px',
+            cursor: refreshing ? 'not-allowed' : 'pointer', opacity: refreshing ? 0.6 : 1,
           }}
         >
           {refreshing ? 'Refreshing...' : '🔄 Refresh'}
@@ -113,7 +93,8 @@ export default function ManageQuizzes() {
             <div className="loading-center"><div className="spinner" /></div>
           ) : quizzes.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-state-title">No quizzes created yet</div>
+              <div className="empty-state-icon">📝</div>
+              <div className="empty-state-title">No quizzes yet</div>
               <div className="empty-state-desc">Create a quiz first, then students can attempt it.</div>
             </div>
           ) : (
@@ -123,32 +104,29 @@ export default function ManageQuizzes() {
                   key={quiz.id}
                   className="card"
                   style={{
-                    padding: '16px',
-                    border: selectedQuiz?.id === quiz.id ? '2px solid #6366f1' : '1px solid var(--color-border)',
-                    cursor: 'pointer',
-                    transition: 'border-color 0.2s'
+                    padding: '14px',
+                    border: selectedQuiz?.id === quiz.id
+                      ? '2px solid #6366f1'
+                      : '1px solid var(--color-border)',
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'flex-start' }}>
-                    <div style={{ flex: 1 }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 4 }}>{quiz.title}</div>
                       {quiz.description && (
-                        <div style={{ fontSize: 13, color: 'var(--color-text-secondary)', marginBottom: 8 }}>
+                        <div style={{ fontSize: 13, color: 'var(--color-text-secondary)', marginBottom: 6 }}>
                           {quiz.description}
                         </div>
                       )}
-                      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 6 }}>
+                      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 4 }}>
                         <span className="badge badge-primary">Marks: {quiz.total_marks}</span>
                         {quiz.class_name && (
                           <span className="badge badge-secondary">{formatClass(quiz.class_name)}</span>
                         )}
                       </div>
                     </div>
-                    <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
-                      <button
-                        className="btn btn-outline btn-sm"
-                        onClick={() => handleSelectQuiz(quiz)}
-                      >
+                    <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
+                      <button className="btn btn-outline btn-sm" onClick={() => handleSelectQuiz(quiz)}>
                         👁 Review
                       </button>
                       <button
@@ -156,7 +134,7 @@ export default function ManageQuizzes() {
                         onClick={() => handleDeleteQuiz(quiz.id)}
                         disabled={deleting}
                       >
-                        🗑 Delete
+                        🗑
                       </button>
                     </div>
                   </div>
@@ -171,7 +149,7 @@ export default function ManageQuizzes() {
           <h2 className="card-title">
             Submissions
             {selectedQuiz && (
-              <span style={{ fontSize: 14, fontWeight: 400, color: 'var(--color-text-secondary)', marginLeft: 8 }}>
+              <span style={{ fontSize: 13, fontWeight: 400, color: 'var(--color-text-secondary)', marginLeft: 8 }}>
                 — {selectedQuiz.title}
               </span>
             )}
@@ -194,41 +172,34 @@ export default function ManageQuizzes() {
               <div className="empty-state-desc">No students have submitted this quiz yet.</div>
             </div>
           ) : (
-            <>
+            <div>
               <div style={{ marginBottom: 12 }}>
-                <span className="badge badge-primary">{results.length} submission{results.length !== 1 ? 's' : ''}</span>
+                <span className="badge badge-primary">
+                  {results.length} submission{results.length !== 1 ? 's' : ''}
+                </span>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {results.map((sub, index) => {
-                  const studentLabel = sub.student_name || sub.student_id || 'Unknown student';
-                  const submittedAt = sub.submitted_at ? new Date(sub.submitted_at).toLocaleString() : 'Unknown';
-
-                  return (
-                    <div
-                      key={sub.id || index}
-                      className="card"
-                      style={{ padding: '14px', background: 'rgba(99,102,241,0.05)', border: '1px solid rgba(99,102,241,0.2)' }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                        <div>
-                          <span style={{ fontWeight: 700, fontSize: 15 }}>
-                            #{index + 1} {studentLabel}
-                          </span>
-                          {sub.student_name && sub.student_id && sub.student_id !== sub.student_name && (
-                            <span style={{ fontSize: 12, color: 'var(--color-text-secondary)', marginLeft: 6 }}>
-                              ({sub.student_id})
-                            </span>
-                          )}
-                        </div>
-                        <div style={{ display: 'flex', gap: 6 }}>
-                          <span className="badge badge-secondary">
-                            {sub.marks !== null && sub.marks !== undefined ? `Marks: ${sub.marks}` : 'Not graded'}
-                          </span>
-                        </div>
-                      </div>
-                      <div style={{ fontSize: 12, color: 'var(--color-text-secondary)', marginBottom: 10 }}>
-                        Submitted: {submittedAt}
-                      </div>
+                {results.map((sub, index) => (
+                  <div
+                    key={sub.id || index}
+                    className="card"
+                    style={{
+                      padding: '14px',
+                      background: 'rgba(99,102,241,0.05)',
+                      border: '1px solid rgba(99,102,241,0.2)',
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                      <span style={{ fontWeight: 700, fontSize: 15 }}>
+                        #{index + 1} {sub.student_name || sub.student_id || 'Student'}
+                      </span>
+                      <span className="badge badge-secondary">
+                        {sub.marks !== null && sub.marks !== undefined ? `Marks: ${sub.marks}` : 'Not graded'}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: 12, color: 'var(--color-text-secondary)', marginBottom: 10 }}>
+                      Submitted: {sub.submitted_at ? new Date(sub.submitted_at).toLocaleString() : '—'}
+                    </div>
                     <div style={{ background: 'var(--color-surface)', borderRadius: 6, padding: '10px 12px' }}>
                       <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', color: 'var(--color-accent-primary)', marginBottom: 6 }}>
                         Answers
@@ -244,10 +215,9 @@ export default function ManageQuizzes() {
                       )}
                     </div>
                   </div>
-                  );
-                })}
+                ))}
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

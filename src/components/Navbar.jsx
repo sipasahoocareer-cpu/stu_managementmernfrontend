@@ -55,16 +55,31 @@ export default function Navbar() {
           <li><NavLink to="/about" onClick={() => setMenuOpen(false)}>About</NavLink></li>
           <li><NavLink to="/contact" onClick={() => setMenuOpen(false)}>Contact Us</NavLink></li>
 
-          {/* Courses Dropdown */}
+          {/* Courses Dropdown (click label to navigate to /courses; small chevron toggles dropdown) */}
           <li className="dropdown-parent" ref={dropRef}>
-            <button
-              className={`dropdown-trigger ${coursesOpen ? 'active' : ''}`}
-              onClick={() => setCoursesOpen(!coursesOpen)}
-            >
-              Courses <span className="chevron">{coursesOpen ? '▲' : '▼'}</span>
-            </button>
+            <div className={`dropdown-trigger ${coursesOpen ? 'active' : ''}`}>
+              <button
+                className="courses-main-link"
+                onClick={() => { setCoursesOpen(!coursesOpen); setMenuOpen(false); }}
+                style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+              >
+                Courses
+              </button>
+              <button
+                className="courses-toggle"
+                aria-label="Toggle courses menu"
+                onClick={(e) => { e.stopPropagation(); setCoursesOpen(!coursesOpen); }}
+                style={{ background: 'transparent', border: 'none', cursor: 'pointer', marginLeft: 8 }}
+              >
+                <span className="chevron">{coursesOpen ? '▲' : '▼'}</span>
+              </button>
+            </div>
             {coursesOpen && (
               <div className="dropdown-menu">
+                <div style={{ padding: '8px 12px', borderBottom: '1px solid rgba(0,0,0,0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <strong style={{ fontSize: 14 }}>Browse Classes</strong>
+                  <Link to="/courses" onClick={() => { setCoursesOpen(false); setMenuOpen(false); }} style={{ fontSize: 13 }}>View All</Link>
+                </div>
                 <div className="dropdown-grid">
                   {courses.map((course) => (
                     <Link

@@ -31,7 +31,7 @@ export default function Login() {
       if (detail && typeof detail === 'string') {
         setError(detail);
       } else if (err.response.status === 401) {
-        setError('Invalid credentials. Check your identifier and password.');
+        setError('Invalid name or password. Please enter your registered name and password.');
       } else {
         setError('Login failed. Please try again or contact support.');
       }
@@ -54,7 +54,9 @@ export default function Login() {
 
           <form onSubmit={handleSubmit} className="golden-login-form">
             <div className="golden-form-group">
-              <label className="golden-form-label" htmlFor="login-identifier">Name</label>
+              <label className="golden-form-label" htmlFor="login-identifier">
+                Name
+              </label>
               <div className="golden-input-wrapper">
                 <span className="golden-input-icon"><FiUser /></span>
                 <input

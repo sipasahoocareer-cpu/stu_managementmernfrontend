@@ -81,6 +81,11 @@
 
 html { scroll-behavior: smooth; }
 
+/* Ensure sections scroll into view below the fixed header */
+.section {
+  scroll-margin-top: calc(var(--header-height) + 12px);
+}
+
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--color-bg-primary);

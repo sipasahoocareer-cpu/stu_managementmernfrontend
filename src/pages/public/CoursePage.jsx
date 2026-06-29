@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import './CoursePage.css';
 
 const classData = {
@@ -27,6 +28,10 @@ const subjectColors = [
 
 export default function CoursePage() {
   const { classId } = useParams();
+  useEffect(() => {
+    // Ensure page scrolls to top when navigating between courses
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [classId]);
   const isPgdca = classId === 'pgdca';
   const classNum = parseInt(classId?.replace('class-', '') || '1', 10);
   const data = isPgdca ? classData.pgdca : classData[classNum] || classData[1];
@@ -58,20 +63,24 @@ export default function CoursePage() {
               {data.subjects.length} subjects designed to give a well-rounded education for {data.name}.
             </p>
           </div>
-          <div className="subjects-grid">
-            {data.subjects.map((sub, i) => (
-              <div
-                key={sub}
-                className="subject-card card"
-                style={{ '--sub-color': subjectColors[i % subjectColors.length] }}
-              >
-                <div className="subject-icon" style={{ background: subjectColors[i % subjectColors.length] }}>
-                  {i + 1}
-                </div>
-                <div className="subject-name">{sub}</div>
+              <div className="subjects-grid">
+                {data.subjects.map((sub, i) => {
+                  const emojis = ['📘', '📗', '📕', '📙', '✏️', '🔬', '🗺️', '📐', '💻', '🎨', '⚽️'];
+                  const emoji = emojis[i % emojis.length];
+                  return (
+                    <div
+                      key={sub}
+                      className="subject-card card"
+                      style={{ '--sub-color': subjectColors[i % subjectColors.length] }}
+                    >
+                      <div className="subject-icon" style={{ background: subjectColors[i % subjectColors.length] }}>
+                        {emoji}
+                      </div>
+                      <div className="subject-name">{sub}</div>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -82,9 +91,10 @@ export default function CoursePage() {
           </div>
           <div className="grid grid-3">
             {[
-              { icon: '1', title: 'Subject Mastery', desc: 'Complete command over all curriculum subjects with regular assessments.' },
-              { icon: '2', title: 'Critical Thinking', desc: 'Problem-solving skills through interactive quizzes and classroom discussions.' },
-              { icon: '3', title: 'Progress Tracking', desc: 'Regular result updates, attendance records, and performance analytics.' },
+              { icon: '⭐', title: 'Excellence', desc: 'We set high standards for every student and strive for academic excellence across all classes.' },
+              { icon: '🤝', title: 'Collaboration', desc: 'Students, teachers, and admins work in harmony through our unified digital platform.' },
+              { icon: '💡', title: 'Innovation', desc: 'We leverage technology to modernize education and make learning more engaging and effective.' },
+              { icon: '❤️', title: 'Care', desc: 'Every student matters. We track progress, attendance, and well-being to ensure no one is left behind.' },
             ].map(({ icon, title, desc }) => (
               <div key={title} className="card feature-card">
                 <div className="feature-icon">{icon}</div>

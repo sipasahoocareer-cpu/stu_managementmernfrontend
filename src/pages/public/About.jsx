@@ -1,10 +1,10 @@
 import './About.css';
 
 const values = [
-  { icon: '★', title: 'Excellence', desc: 'We set high standards for every student and strive for academic excellence across all classes.' },
-  { icon: '↔', title: 'Collaboration', desc: 'Students, teachers, and admins work in harmony through our unified digital platform.' },
-  { icon: '!', title: 'Innovation', desc: 'We leverage technology to modernize education and make learning more engaging and effective.' },
-  { icon: '+', title: 'Care', desc: 'Every student matters. We track progress, attendance, and well-being to ensure no one is left behind.' },
+  { icon: '⭐', title: 'Excellence', desc: 'We set high standards for every student and strive for academic excellence across all classes.' },
+  { icon: '🤝', title: 'Collaboration', desc: 'Students, teachers, and admins work in harmony through our unified digital platform.' },
+  { icon: '💡', title: 'Innovation', desc: 'We leverage technology to modernize education and make learning more engaging and effective.' },
+  { icon: '❤️', title: 'Care', desc: 'Every student matters. We track progress, attendance, and well-being to ensure no one is left behind.' },
 ];
 
 const team = [
@@ -61,7 +61,7 @@ export default function About() {
       <section className="section">
         <div className="container">
           <div className="about-mission card">
-            <div className="mission-icon">★</div>
+            <div className="mission-icon">⭐</div>
             <div className="mission-content">
               <h2 className="mission-title">Our Mission</h2>
               <p className="mission-text">

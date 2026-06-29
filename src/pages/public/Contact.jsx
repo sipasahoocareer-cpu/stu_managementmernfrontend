@@ -10,28 +10,52 @@ const contactInfo = [
   { icon: <FiClock />, label: 'Hours', value: 'Mon-Sat: 9:00 AM - 6:00 PM' },
 ];
 
+// Validates Indian mobile number: 10 digits, starts with 6-9
+function validatePhone(phone) {
+  const cleaned = phone.replace(/[\s\-+]/g, '');
+  // Allow optional country code +91 or 0
+  const digits = cleaned.replace(/^(91|0)/, '');
+  return /^[6-9]\d{9}$/.test(digits);
+}
+
 export default function Contact() {
   const [form, setForm] = useState({ name: '', contactNumber: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
 
   const updateField = (field, value) => {
     setForm((current) => ({ ...current, [field]: value }));
+    // Clear phone error when user starts typing phone again
+    if (field === 'contactNumber') setPhoneError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
+    setPhoneError('');
 
+    // Phone validation
+    if (!validatePhone(form.contactNumber)) {
+      setPhoneError('Please enter a valid mobile number.');
+      return;
+    }
+
+    setLoading(true);
     try {
-      await submitQuery({ ...form, email: '' });
+      await submitQuery({
+        name: form.name,
+        email: '',
+        subject: form.contactNumber,   // backend uses "subject" field for phone number
+        message: form.message,
+      });
       setSubmitted(true);
       setForm({ name: '', contactNumber: '', message: '' });
     } catch (err) {
       console.error('Failed to submit query:', err);
-      setError('Failed to send message. Please try again.');
+      const detail = err?.response?.data?.detail;
+      setError(detail || 'Failed to send message. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -41,6 +65,7 @@ export default function Contact() {
     setSubmitted(false);
     setForm({ name: '', contactNumber: '', message: '' });
     setError('');
+    setPhoneError('');
   };
 
   return (
@@ -81,7 +106,7 @@ export default function Contact() {
             {submitted ? (
               <div className="contact-success">
                 <div className="contact-success-icon"><FiSend /></div>
-                <h2>Message Sent</h2>
+                <h2>Message Sent!</h2>
                 <p>Thank you for contacting us. Our team will get back to you soon.</p>
                 <button className="contact-submit-btn" onClick={handleReset}>
                   Send Another Message
@@ -97,37 +122,57 @@ export default function Contact() {
                 {error && <div className="contact-error">{error}</div>}
 
                 <div className="contact-form-row">
+                  {/* Name */}
                   <label className="contact-form-group" htmlFor="contact-name">
                     <span><FiUser /> Name</span>
                     <input
                       id="contact-name"
                       type="text"
                       required
-                      placeholder="Enter your name"
+                      placeholder="Enter your full name"
                       value={form.name}
                       onChange={(e) => updateField('name', e.target.value)}
                     />
                   </label>
 
-                  <label className="contact-form-group" htmlFor="contact-phone">
-                    <span><FiPhone /> Phone Number</span>
+                  {/* Phone */}
+                  <div className="contact-form-group">
+                    <label htmlFor="contact-phone">
+                      <span><FiPhone /> Phone Number</span>
+                    </label>
                     <input
                       id="contact-phone"
                       type="tel"
                       required
-                      placeholder="Enter your phone number"
+                      placeholder="Phone number"
                       value={form.contactNumber}
                       onChange={(e) => updateField('contactNumber', e.target.value)}
+                      style={{
+                        borderColor: phoneError ? '#ef4444' : undefined,
+                        outline: phoneError ? '1px solid #ef4444' : undefined,
+                      }}
                     />
-                  </label>
+                    {phoneError && (
+                      <span style={{
+                        color: '#ef4444',
+                        fontSize: '12px',
+                        marginTop: '4px',
+                        display: 'block',
+                      }}>
+                        ⚠ {phoneError}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
+                {/* Message */}
                 <label className="contact-form-group" htmlFor="contact-query">
-                  <span><FiMessageSquare /> Query</span>
+                  <span><FiMessageSquare /> Query / Message</span>
                   <textarea
                     id="contact-query"
                     required
-                    placeholder="Write your query here"
+                    rows={5}
+                    placeholder="Write your query here..."
                     value={form.message}
                     onChange={(e) => updateField('message', e.target.value)}
                   />
