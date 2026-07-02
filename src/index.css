@@ -405,6 +405,22 @@ select.form-control option { background: var(--color-bg-secondary); }
   margin-bottom: 6px;
 }
 
+.quiz-form-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: var(--space-lg);
+  align-items: end;
+}
+
+.quiz-preview-card {
+  background: rgba(99,102,241,0.06);
+  border-color: rgba(99,102,241,0.24);
+}
+
+.quiz-preview-card .badge {
+  margin-right: 0.5rem;
+}
+
 .page-subtitle {
   font-size: 15px;
   color: var(--color-text-secondary);

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FiArrowLeft, FiLock, FiLogIn, FiUser } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
+import { apiBaseURLDisplay } from '../../api';
 import './Login.css';
 
 export default function Login() {
@@ -22,8 +23,13 @@ export default function Login() {
       const role = user.role?.toLowerCase() || 'student';
       navigate(map[role] || '/dashboard/student');
     } catch (err) {
+      if (err?.isApiConfigError) {
+        setError(err.message);
+        return;
+      }
+
       if (!err?.response) {
-        setError('Cannot reach the backend on http://localhost:8000. Start the API server first.');
+        setError(`Cannot reach the backend on ${apiBaseURLDisplay}. Start the API server first.`);
         return;
       }
 

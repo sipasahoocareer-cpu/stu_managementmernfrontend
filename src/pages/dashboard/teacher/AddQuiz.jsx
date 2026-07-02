@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { createQuiz } from '../../../api';
+import { useAuth } from '../../../context/AuthContext';
 
 export default function AddQuiz() {
+  const { user } = useAuth();
   const [form, setForm]       = useState({ title: '', description: '', total_marks: 100, class_name: '' });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
@@ -26,25 +28,56 @@ export default function AddQuiz() {
   return (
     <div className="animate-fade-in">
       <div className="page-header">
-        <h1 className="page-title">🧠 Add Quiz</h1>
-        <p className="page-subtitle">Create a new quiz for your students to attempt.</p>
+        <h1 className="page-title">🧠 Create New Quiz</h1>
+        <p className="page-subtitle">Add the quiz name and target class in a single, polished section.</p>
       </div>
 
-      <div style={{ maxWidth: 700 }}>
+      <div style={{ maxWidth: 860, margin: '0 auto' }}>
         <div className="card">
+          <div className="card-header">
+            <div>
+              <div className="card-title">Quiz Information</div>
+              <p className="page-subtitle" style={{ marginTop: 6 }}>Enter quiz name, select the class, and add supporting details.</p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
+              {user?.name && <span className="badge badge-success">Teacher: {user.name}</span>}
+              {user?.class_name && <span className="badge badge-primary">Your class: {user.class_name}</span>}
+            </div>
+          </div>
+
           {success && <div className="alert alert-success" style={{ marginBottom: 'var(--space-lg)' }}>{success}</div>}
           {error   && <div className="alert alert-error"   style={{ marginBottom: 'var(--space-lg)' }}>{error}</div>}
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
-            <div className="form-group">
-              <label className="form-label">Quiz Title</label>
-              <input
-                className="form-control"
-                placeholder="e.g., Mid-Term Science Quiz — Chapter 4"
-                required
-                value={form.title}
-                onChange={e => setForm({ ...form, title: e.target.value })}
-              />
+            <div className="quiz-form-grid">
+              <div className="form-group">
+                <label className="form-label">Quiz Title</label>
+                <input
+                  className="form-control"
+                  placeholder="e.g., Mid-Term Science Quiz — Chapter 4"
+                  required
+                  value={form.title}
+                  onChange={e => setForm({ ...form, title: e.target.value })}
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Class</label>
+                <select
+                  className="form-control"
+                  required
+                  value={form.class_name}
+                  onChange={e => setForm({ ...form, class_name: e.target.value })}
+                >
+                  <option value="">Select class</option>
+                  {[...Array(10)].map((_, idx) => (
+                    <option key={idx} value={`${idx + 1}`}>
+                      Class {idx + 1}
+                    </option>
+                  ))}
+                  <option value="PGDCA">PGDCA</option>
+                </select>
+              </div>
             </div>
 
             <div className="form-group">
@@ -58,25 +91,7 @@ export default function AddQuiz() {
               />
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Class</label>
-              <select
-                className="form-control"
-                required
-                value={form.class_name}
-                onChange={e => setForm({ ...form, class_name: e.target.value })}
-              >
-                <option value="">Select class</option>
-                {[...Array(10)].map((_, idx) => (
-                  <option key={idx} value={`${idx + 1}`}>
-                    Class {idx + 1}
-                  </option>
-                ))}
-                <option value="PGDCA">PGDCA</option>
-              </select>
-            </div>
-
-            <div className="form-group">
+            <div className="form-group" style={{ maxWidth: 260 }}>
               <label className="form-label">Total Marks</label>
               <input
                 type="number"
@@ -90,23 +105,23 @@ export default function AddQuiz() {
               />
             </div>
 
-            <div className="quiz-preview card" style={{ background: 'rgba(139,92,246,0.08)', border: '1px solid rgba(139,92,246,0.3)' }}>
-              <div style={{ fontWeight: 600, marginBottom: 8, color: '#a78bfa' }}>Preview</div>
-              <div style={{ fontSize: 18, fontWeight: 700 }}>{form.title || 'Quiz Title'}</div>
-              <div style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginTop: 4 }}>
+            <div className="quiz-preview card quiz-preview-card">
+              <div style={{ fontWeight: 600, marginBottom: 10, color: 'var(--color-accent-secondary)' }}>Preview</div>
+              <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-text-primary)' }}>{form.title || 'Quiz Title'}</div>
+              <div style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginTop: 8, minHeight: 42 }}>
                 {form.description || 'No description'}
               </div>
-              <div style={{ marginTop: 12, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+              <div style={{ marginTop: 18, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 <span className="badge badge-primary">Marks: {form.total_marks}</span>
                 {form.class_name && (
                   <span className="badge badge-secondary">
-                    Class: {form.class_name === 'PGDCA' ? 'PGDCA' : `Class ${form.class_name}`}
+                    {form.class_name === 'PGDCA' ? 'PGDCA' : `Class ${form.class_name}`}
                   </span>
                 )}
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: 'var(--space-md)' }}>
+            <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
               <button type="submit" className="btn btn-primary" disabled={loading}>
                 {loading ? 'Creating...' : '🚀 Create Quiz'}
               </button>

@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { FiEdit2, FiTrash2, FiPlus, FiSearch, FiX, FiSave, FiUser } from 'react-icons/fi';
-import { getAllStudents, addStudent, editStudent, deleteStudent } from '../../../api';
+import { apiBaseURLDisplay, getAllStudents, addStudent, editStudent, deleteStudent } from '../../../api';
 import './AdminStudents.css';
 
 const emptyForm = {
@@ -26,15 +26,22 @@ export default function AdminStudents() {
   const [formData, setFormData] = useState(emptyForm);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [fetchError, setFetchError] = useState('');
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
   const fetchStudents = useCallback(async (q = '') => {
     setLoading(true);
+    setFetchError('');
     try {
       const res = await getAllStudents(q);
       setStudents(res.data.data || []);
     } catch (err) {
       console.error('Failed to fetch students:', err);
+      if (!err?.response) {
+        setFetchError(`Cannot reach the backend on ${apiBaseURLDisplay}. Make sure the API server is running.`);
+      } else {
+        setFetchError(err.response.data?.detail || 'Failed to fetch students. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -94,7 +101,10 @@ export default function AdminStudents() {
       fetchStudents(searchQuery);
     } catch (err) {
       const detail = err?.response?.data?.detail;
-      setError(detail || 'Something went wrong. Please try again.');
+      const message = typeof detail === 'string'
+        ? detail
+        : detail?.detail || err?.message || 'Something went wrong. Please try again.';
+      setError(message);
     } finally {
       setSaving(false);
     }
@@ -140,6 +150,8 @@ export default function AdminStudents() {
           </button>
         )}
       </div>
+
+      {fetchError && <div className="students-fetch-error">{fetchError}</div>}
 
       {loading ? (
         <div className="students-loading">
