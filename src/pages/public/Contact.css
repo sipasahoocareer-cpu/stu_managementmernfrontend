@@ -6,60 +6,8 @@
     var(--color-bg-primary);
 }
 
-.contact-hero {
-  position: relative;
-  padding: calc(var(--header-height) + 80px) var(--space-lg) var(--space-3xl);
-  text-align: center;
-  overflow: hidden;
-}
-
-.contact-hero::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: min(760px, 86vw);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.4), transparent);
-  transform: translateX(-50%);
-}
-
-.contact-hero-inner {
-  max-width: 760px;
-}
-
-.contact-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 14px;
-  margin-bottom: var(--space-lg);
-  border-radius: var(--radius-full);
-  color: var(--color-text-accent);
-  background: rgba(99, 102, 241, 0.1);
-  border: 1px solid rgba(99, 102, 241, 0.16);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.contact-hero h1 {
-  margin: 0;
-  color: var(--color-text-primary);
-  font-size: clamp(34px, 5vw, 58px);
-  font-weight: 850;
-}
-
-.contact-hero p {
-  max-width: 620px;
-  margin: var(--space-lg) auto 0;
-  color: var(--color-text-secondary);
-  font-size: 17px;
-  line-height: 1.75;
-}
-
 .contact-content {
-  padding: var(--space-3xl) var(--space-lg);
+  padding: 0;
 }
 
 .contact-grid {

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { createNote } from '../../../api';
 
 export default function AddNote() {
-  const [form, setForm] = useState({ title: '', content: '', file: null });
+  const [form, setForm] = useState({ title: '', content: '', file: null, class_name: '' });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
@@ -16,11 +16,12 @@ export default function AddNote() {
       const data = new FormData();
       data.append('title', form.title);
       data.append('content', form.content);
+      data.append('class_name', form.class_name);
       data.append('file', form.file);
 
       await createNote(data);
       setSuccess('Successfully uploaded. Students can now view the PDF note.');
-      setForm({ title: '', content: '', file: null });
+      setForm({ title: '', content: '', file: null, class_name: '' });
       e.target.reset();
     } catch (err) {
       setError(err?.response?.data?.detail || 'Failed to upload note. Please try again.');
@@ -30,7 +31,7 @@ export default function AddNote() {
   };
 
   const clearForm = () => {
-    setForm({ title: '', content: '', file: null });
+    setForm({ title: '', content: '', file: null, class_name: '' });
     setSuccess('');
     setError('');
   };
@@ -56,6 +57,22 @@ export default function AddNote() {
                 value={form.title}
                 onChange={(e) => setForm({ ...form, title: e.target.value })}
               />
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Class</label>
+              <select
+                className="form-control"
+                required
+                value={form.class_name}
+                onChange={(e) => setForm({ ...form, class_name: e.target.value })}
+              >
+                <option value="">Select class</option>
+                {[...Array(10)].map((_, idx) => (
+                  <option key={idx} value={`${idx + 1}`}>Class {idx + 1}</option>
+                ))}
+                <option value="PGDCA">PGDCA</option>
+              </select>
             </div>
 
             <div className="form-group">

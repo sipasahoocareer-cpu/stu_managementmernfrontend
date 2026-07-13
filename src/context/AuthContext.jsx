@@ -27,26 +27,28 @@ export function AuthProvider({ children }) {
   const login = async (identifier, password) => {
     try {
       const res = await loginApi(identifier, password);
-      const data = res.data;
+      // Backend returns: { success, message, data: { user, token } }
+      const payload = res.data?.data || res.data;
 
-      const userData = {
-        id:    data.id,
-        name:  data.name,
-        role:  data.role?.toLowerCase() || 'student',
-        email: data.email || '',
-        registration_number: data.registration_number || '',
-        teacher_id: data.teacher_id || '',
-        department: data.department || '',
-        semester: data.semester || '',
-        subject: data.subject || '',
-        class_name: data.class_name || '',
-      };
-
-      const accessToken = data.token || data.access_token;
+      const userObj = payload?.user || payload;
+      const accessToken = payload?.token || payload?.access_token || res.data?.token;
 
       if (!accessToken) {
         throw new Error('No token received from server');
       }
+
+      const userData = {
+        id:    userObj._id || userObj.id,
+        name:  userObj.name,
+        role:  userObj.role?.toLowerCase() || 'student',
+        email: userObj.email || '',
+        registration_number: userObj.registration_number || '',
+        teacher_id: userObj.teacher_id || '',
+        department: userObj.department || '',
+        semester: userObj.semester || '',
+        subject: userObj.subject || '',
+        class_name: userObj.class_name || '',
+      };
 
       localStorage.setItem('token', accessToken);
       localStorage.setItem('user', JSON.stringify(userData));
@@ -57,6 +59,7 @@ export function AuthProvider({ children }) {
       throw error;
     }
   };
+
 
   const logout = () => {
     localStorage.removeItem('token');

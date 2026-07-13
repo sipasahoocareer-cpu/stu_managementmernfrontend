@@ -34,6 +34,10 @@ export default function Navbar() {
     navigate('/');
   };
 
+  const toggleCourses = () => {
+    setCoursesOpen((open) => !open);
+  };
+
   const dashboardLink = () => {
     if (!user) return '/login';
     const map = { admin: '/dashboard/admin', teacher: '/dashboard/teacher', student: '/dashboard/student' };
@@ -46,7 +50,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" className="navbar-logo">
           <div className="navbar-logo-icon">🎓</div>
-          <span className="navbar-logo-text">Maa Kharakhai Ambitious Tutorial</span>
+          <span className="navbar-logo-text">Maa Kharakhai Ambisious Tutorial</span>
         </Link>
 
         {/* Desktop links */}
@@ -60,7 +64,9 @@ export default function Navbar() {
             <div className={`dropdown-trigger ${coursesOpen ? 'active' : ''}`}>
               <button
                 className="courses-main-link"
-                onClick={() => { setCoursesOpen(!coursesOpen); setMenuOpen(false); }}
+                onClick={toggleCourses}
+                aria-expanded={coursesOpen}
+                aria-controls="courses-menu"
                 style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
               >
                 Courses
@@ -68,14 +74,16 @@ export default function Navbar() {
               <button
                 className="courses-toggle"
                 aria-label="Toggle courses menu"
-                onClick={(e) => { e.stopPropagation(); setCoursesOpen(!coursesOpen); }}
+                aria-expanded={coursesOpen}
+                aria-controls="courses-menu"
+                onClick={(e) => { e.stopPropagation(); toggleCourses(); }}
                 style={{ background: 'transparent', border: 'none', cursor: 'pointer', marginLeft: 8 }}
               >
                 <span className="chevron">{coursesOpen ? '▲' : '▼'}</span>
               </button>
             </div>
             {coursesOpen && (
-              <div className="dropdown-menu">
+              <div id="courses-menu" className="dropdown-menu">
                 <div className="dropdown-sheet-header" style={{ padding: '8px 12px' }}>
                   <strong style={{ fontSize: 14 }}>Browse Classes</strong>
                   <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
@@ -99,9 +107,27 @@ export default function Navbar() {
               </div>
             )}
           </li>
+
+          {/* Mobile CTA - shown in menu on mobile */}
+          <li className="mobile-cta-section">
+            {user ? (
+              <div className="mobile-user-group">
+                <Link to={dashboardLink()} className="mobile-cta-link mobile-dashboard" onClick={() => setMenuOpen(false)}>
+                  📊 Dashboard
+                </Link>
+                <button onClick={() => { handleLogout(); setMenuOpen(false); }} className="mobile-cta-link mobile-logout">
+                  🚪 Logout
+                </button>
+              </div>
+            ) : (
+              <Link to="/login" className="mobile-cta-link mobile-login" onClick={() => setMenuOpen(false)}>
+                🔐 Login
+              </Link>
+            )}
+          </li>
         </ul>
 
-        {/* CTA */}
+        {/* Desktop CTA */}
         <div className="navbar-cta">
           {user ? (
             <div className="navbar-user-group">
@@ -119,7 +145,7 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Menu toggle (kebab) - accessible */}
+        {/* Menu toggle (kebab/3-dot menu) - accessible */}
         <button
           className={`hamburger kebab ${menuOpen ? 'open' : ''}`}
           onClick={() => setMenuOpen(!menuOpen)}

@@ -1,4 +1,4 @@
-import logo from '../assets/whatsapp-logo.svg';
+import { FaWhatsapp } from 'react-icons/fa';
 import './WhatsAppWidget.css';
 
 export default function WhatsAppWidget() {
@@ -11,7 +11,7 @@ export default function WhatsAppWidget() {
         className="whatsapp-widget-link"
         aria-label="Chat on WhatsApp"
       >
-        <img src={logo} alt="WhatsApp" className="whatsapp-icon" />
+        <FaWhatsapp className="whatsapp-icon" aria-hidden="true" />
       </a>
     </div>
   );

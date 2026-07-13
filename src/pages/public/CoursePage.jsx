@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import './CoursePage.css';
+import './PageLayout.css';
 
 const classData = {
   1: { name: 'Class I', emoji: 'I', subjects: ['English', 'Hindi', 'Mathematics', 'Environmental Studies', 'Drawing & Art'], desc: 'Foundation year building core literacy, numeracy, and curiosity through play-based learning.' },
@@ -39,102 +40,106 @@ export default function CoursePage() {
   const nextClass = !isPgdca && classNum < 10 ? classNum + 1 : null;
 
   return (
-    <div className="course-page">
-      <section className="course-hero">
-        <div className="course-hero-bg">
+    <div className="course-page page-wrapper">
+      <section className="page-hero">
+        <div className="page-hero-bg">
           <div className="course-hero-orb" />
         </div>
-        <div className="container course-hero-content">
+        <div className="page-hero-content">
           <div className="course-hero-emoji">{data.emoji}</div>
-          <div className="section-badge">Curriculum Overview</div>
-          <h1 className="course-hero-title">{data.name}</h1>
-          <p className="course-hero-desc">{data.desc}</p>
+          <span className="page-hero-badge">Curriculum Overview</span>
+          <h1 className="page-hero-title course-hero-title">{data.name}</h1>
+          <p className="page-hero-subtitle">{data.desc}</p>
           <Link to="/login" className="btn btn-primary">
             Enroll Now
           </Link>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Subjects Covered</h2>
-            <p className="section-subtitle">
-              {data.subjects.length} subjects designed to give a well-rounded education for {data.name}.
-            </p>
-          </div>
-              <div className="subjects-grid">
-                {data.subjects.map((sub, i) => {
-                  const emojis = ['📘', '📗', '📕', '📙', '✏️', '🔬', '🗺️', '📐', '💻', '🎨', '⚽️'];
-                  const emoji = emojis[i % emojis.length];
-                  return (
-                    <div
-                      key={sub}
-                      className="subject-card card"
-                      style={{ '--sub-color': subjectColors[i % subjectColors.length] }}
-                    >
-                      <div className="subject-icon" style={{ background: subjectColors[i % subjectColors.length] }}>
-                        {emoji}
-                      </div>
-                      <div className="subject-name">{sub}</div>
+      <div className="page-content">
+        <div className="page-content-inner">
+
+          <section className="section">
+            <div className="section-header">
+              <h2 className="section-title">Subjects Covered</h2>
+              <p className="section-subtitle">
+                {data.subjects.length} subjects designed to give a well-rounded education for {data.name}.
+              </p>
+            </div>
+            <div className="subjects-grid">
+              {data.subjects.map((sub, i) => {
+                const emojis = ['📘', '📗', '📕', '📙', '✏️', '🔬', '🗺️', '📐', '💻', '🎨', '⚽️'];
+                const emoji = emojis[i % emojis.length];
+                return (
+                  <div
+                    key={sub}
+                    className="subject-card card"
+                    style={{ '--sub-color': subjectColors[i % subjectColors.length] }}
+                  >
+                    <div className="subject-icon" style={{ background: subjectColors[i % subjectColors.length] }}>
+                      {emoji}
                     </div>
-                  );
-                })}
-              </div>
+                    <div className="subject-name">{sub}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className="section section-dark">
+            <div className="section-header">
+              <h2 className="section-title">What Students Will Gain</h2>
+            </div>
+            <div className="grid grid-3">
+              {[
+                { icon: '⭐', title: 'Excellence', desc: 'We set high standards for every student and strive for academic excellence across all classes.' },
+                { icon: '🤝', title: 'Collaboration', desc: 'Students, teachers, and admins work in harmony through our unified digital platform.' },
+                { icon: '💡', title: 'Innovation', desc: 'We leverage technology to modernize education and make learning more engaging and effective.' },
+                { icon: '❤️', title: 'Care', desc: 'Every student matters. We track progress, attendance, and well-being to ensure no one is left behind.' },
+              ].map(({ icon, title, desc }) => (
+                <div key={title} className="card feature-card">
+                  <div className="feature-icon">{icon}</div>
+                  <h3 className="feature-title">{title}</h3>
+                  <p className="feature-desc">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="course-nav">
+              {prevClass ? (
+                <Link to={`/courses/class-${prevClass}`} className="btn btn-secondary">
+                  Class {prevClass}
+                </Link>
+              ) : (
+                <div />
+              )}
+
+              <Link to="/login" className="btn btn-primary">
+                Join {data.name}
+              </Link>
+
+              {nextClass ? (
+                <Link to={`/courses/class-${nextClass}`} className="btn btn-secondary">
+                  Class {nextClass}
+                </Link>
+              ) : isPgdca ? (
+                <Link to="/courses/class-1" className="btn btn-secondary">
+                  View Classes
+                </Link>
+              ) : (
+                <Link to="/courses/pgdca" className="btn btn-secondary">
+                  PGDCA
+                </Link>
+              )}
+            </div>
+          </section>
+
         </div>
-      </section>
-
-      <section className="section section-dark">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">What Students Will Gain</h2>
-          </div>
-          <div className="grid grid-3">
-            {[
-              { icon: '⭐', title: 'Excellence', desc: 'We set high standards for every student and strive for academic excellence across all classes.' },
-              { icon: '🤝', title: 'Collaboration', desc: 'Students, teachers, and admins work in harmony through our unified digital platform.' },
-              { icon: '💡', title: 'Innovation', desc: 'We leverage technology to modernize education and make learning more engaging and effective.' },
-              { icon: '❤️', title: 'Care', desc: 'Every student matters. We track progress, attendance, and well-being to ensure no one is left behind.' },
-            ].map(({ icon, title, desc }) => (
-              <div key={title} className="card feature-card">
-                <div className="feature-icon">{icon}</div>
-                <h3 className="feature-title">{title}</h3>
-                <p className="feature-desc">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container course-nav">
-          {prevClass ? (
-            <Link to={`/courses/class-${prevClass}`} className="btn btn-secondary">
-              Class {prevClass}
-            </Link>
-          ) : (
-            <div />
-          )}
-
-          <Link to="/login" className="btn btn-primary">
-            Join {data.name}
-          </Link>
-
-          {nextClass ? (
-            <Link to={`/courses/class-${nextClass}`} className="btn btn-secondary">
-              Class {nextClass}
-            </Link>
-          ) : isPgdca ? (
-            <Link to="/courses/class-1" className="btn btn-secondary">
-              View Classes
-            </Link>
-          ) : (
-            <Link to="/courses/pgdca" className="btn btn-secondary">
-              PGDCA
-            </Link>
-          )}
-        </div>
-      </section>
+      </div>
     </div>
   );
 }
+
+

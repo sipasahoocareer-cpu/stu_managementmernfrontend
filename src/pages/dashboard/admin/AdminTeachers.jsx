@@ -5,6 +5,7 @@ import './AdminTeachers.css';
 
 const emptyForm = {
   name: '',
+  email: '',
   teacher_id: '',
   subject: '',
   password: '',
@@ -38,9 +39,11 @@ export default function AdminTeachers() {
     setLoading(true);
     try {
       const res = await getTeachers(q);
+      // backend returns { success, message, data: [...] }
       setTeachers(res.data.data || []);
     } catch (err) {
       console.error('Failed to fetch teachers:', err);
+      setError(err?.response?.data?.message || 'Failed to fetch teachers. Is the server running?');
     } finally {
       setLoading(false);
     }
@@ -67,12 +70,13 @@ export default function AdminTeachers() {
   const openEditModal = (teacher) => {
     setFormData({
       name: teacher.name || '',
+      email: teacher.email || '',
       teacher_id: teacher.teacher_id || '',
       subject: teacher.subject || '',
       password: '',
     });
     setEditMode(true);
-    setEditingId(teacher.id);
+    setEditingId(teacher._id || teacher.id);
     setCreatedCredentials(null);
     setError('');
     setShowModal(true);
@@ -89,6 +93,10 @@ export default function AdminTeachers() {
         subject: formData.subject.trim(),
       };
 
+      if (formData.email?.trim()) {
+        payload.email = formData.email.trim();
+      }
+
       if (formData.password.trim()) {
         payload.password = formData.password.trim();
       }
@@ -98,17 +106,19 @@ export default function AdminTeachers() {
         setCreatedCredentials(null);
       } else {
         const res = await createTeacher(payload);
+        const created = res.data?.data || {};
         setCreatedCredentials({
-          teacher_id: res.data?.data?.teacher_id || payload.teacher_id,
-          password: res.data?.login_password || payload.password || payload.teacher_id,
+          teacher_id: created.teacher_id || payload.teacher_id,
+          email: created.login_email || '',
+          password: created.login_password || payload.password || payload.teacher_id,
         });
       }
 
       setShowModal(false);
       fetchTeachers(searchQuery);
     } catch (err) {
-      const detail = err?.response?.data?.detail;
-      setError(detail || 'Something went wrong. Please try again.');
+      const msg = err?.response?.data?.message || err?.response?.data?.detail;
+      setError(msg || 'Something went wrong. Please try again.');
     } finally {
       setSaving(false);
     }
@@ -186,8 +196,13 @@ export default function AdminTeachers() {
             color: '#1e3a8a',
           }}
         >
-          <strong>Teacher login created.</strong> ID: {createdCredentials.teacher_id} | Password:{' '}
-          {createdCredentials.password}
+          <strong>✅ Teacher login created!</strong><br />
+          <span>Teacher ID: <b>{createdCredentials.teacher_id}</b></span><br />
+          {createdCredentials.email && <span>Login Email: <b>{createdCredentials.email}</b><br /></span>}
+          <span>Password: <b>{createdCredentials.password}</b></span>
+          <span style={{ display: 'block', marginTop: 6, fontSize: '0.85rem', color: '#3730a3' }}>
+            Share these credentials with the teacher.
+          </span>
         </div>
       )}
 
@@ -209,15 +224,17 @@ export default function AdminTeachers() {
               <tr>
                 <th>Name</th>
                 <th>Teacher ID</th>
+                <th>Login Email</th>
                 <th>Subject</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {teachers.map((teacher) => (
-                <tr key={teacher.id}>
+                <tr key={teacher._id || teacher.id}>
                   <td className="font-medium">{teacher.name}</td>
                   <td>{teacher.teacher_id}</td>
+                  <td style={{ fontSize: '0.85rem', color: '#6b7280' }}>{teacher.email || '—'}</td>
                   <td>
                     <span className="badge badge-warning">{teacher.subject || 'Unassigned'}</span>
                   </td>
@@ -228,7 +245,7 @@ export default function AdminTeachers() {
                     <button
                       className="btn-icon btn-icon-danger"
                       title="Delete"
-                      onClick={() => setDeleteConfirm(teacher.id)}
+                      onClick={() => setDeleteConfirm(teacher._id || teacher.id)}
                     >
                       <FiTrash2 />
                     </button>
@@ -290,6 +307,13 @@ export default function AdminTeachers() {
                 onChange={(e) =>
                   setFormData({ ...formData, teacher_id: e.target.value.toUpperCase() })
                 }
+                style={{ width: '100%', marginBottom: 12 }}
+              />
+              <input
+                type="email"
+                placeholder={`Login Email (optional — defaults to ${formData.teacher_id ? formData.teacher_id.toLowerCase() + '@school.local' : 'teacherid@school.local'})`}
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 style={{ width: '100%', marginBottom: 12 }}
               />
               <select

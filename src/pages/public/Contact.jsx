@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FiClock, FiMail, FiMapPin, FiMessageSquare, FiPhone, FiSend, FiUser } from 'react-icons/fi';
 import { submitQuery } from '../../api';
 import './Contact.css';
+import './PageLayout.css';
 
 const contactInfo = [
   { icon: <FiMapPin />, label: 'Address', value: 'In front of Balianta Gram Panchayat Office, Balianta' },
@@ -69,20 +70,27 @@ export default function Contact() {
   };
 
   return (
-    <div className="contact-page">
-      <section className="contact-hero">
-        <div className="container contact-hero-inner">
-          <div className="contact-eyebrow">Contact Us</div>
-          <h1>Talk To Maa Kharakhai Ambitious Tutorial</h1>
-          <p>
+    <div className="contact-page page-wrapper">
+      <section className="page-hero">
+        <div className="page-hero-bg">
+          <div className="about-orb about-orb-1" />
+          <div className="about-orb about-orb-2" />
+        </div>
+        <div className="page-hero-content">
+          <span className="page-hero-badge">Contact Us</span>
+          <h1 className="page-hero-title">
+            Talk To <span className="gradient-text">Maa Kharakhai</span><br />
+            Ambisious Tutorial
+          </h1>
+          <p className="page-hero-subtitle">
             Share your question, admission query, or course interest. We will reach out and help
             you with the next step.
           </p>
         </div>
       </section>
 
-      <section className="contact-content">
-        <div className="container contact-grid">
+      <section className="contact-content page-content">
+        <div className="page-content-inner contact-grid">
           <div className="contact-info-panel">
             <h2>Contact Information</h2>
             <p className="contact-info-intro">

@@ -15,7 +15,7 @@ export default function Footer() {
               <span className="footer-logo-mark"><FiBookOpen /></span>
               <span>
                 <span className="footer-logo-title">Maa Kharakhai</span>
-                <span className="footer-logo-subtitle">Ambitious Tutorial</span>
+                <span className="footer-logo-subtitle">Ambisious Tutorial</span>
               </span>
             </Link>
 
@@ -61,7 +61,7 @@ export default function Footer() {
         <div className="footer-divider"></div>
 
         <div className="footer-bottom">
-          <p>&copy; 2023 - {year} Maa Kharakhai Ambitious Tutorial. All rights reserved.</p>
+          <p>&copy; 2023 - {year} Maa Kharakhai Ambisious Tutorial. All rights reserved.</p>
 
           <div className="social-links">
             <a href="#" className="social-icon" aria-label="Facebook" title="Facebook"><FaFacebookF /></a>

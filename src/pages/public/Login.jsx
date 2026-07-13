@@ -8,7 +8,7 @@ import './Login.css';
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [form, setForm] = useState({ identifier: '', password: '' });
+  const [form, setForm] = useState({ identifier: '', password: '' }); // identifier = email
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -52,7 +52,7 @@ export default function Login() {
         <div className="golden-login-card">
           <div className="golden-login-header">
             <div className="golden-login-mark"><FiLogIn /></div>
-            <p className="golden-login-eyebrow">Maa Kharakhai Ambitious Tutorial</p>
+            <p className="golden-login-eyebrow">Maa Kharakhai Ambisious Tutorial</p>
             <h1 className="golden-login-title">Portal Login</h1>
           </div>
 

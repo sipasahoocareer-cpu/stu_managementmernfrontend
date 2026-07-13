@@ -3,15 +3,7 @@
    ============================================================ */
 .course-page {}
 
-.course-hero {
-  position: relative;
-  padding: 120px 0 var(--space-3xl);
-  text-align: center;
-  overflow: hidden;
-}
-
-.course-hero-bg { position: absolute; inset: 0; z-index: 0; }
-
+/* Hero orb works inside page-hero-bg from PageLayout.css */
 .course-hero-orb {
   position: absolute;
   width: 600px; height: 600px;
@@ -22,35 +14,42 @@
   filter: blur(60px);
 }
 
-.course-hero-content {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-lg);
-}
-
+/* Course emoji shown in hero */
 .course-hero-emoji {
   font-size: 72px;
   animation: float 4s ease-in-out infinite;
   line-height: 1;
 }
 
+/* Override page-hero-title for gradient style on course title */
 .course-hero-title {
-  font-size: clamp(36px, 5vw, 60px);
-  font-weight: 800;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background: var(--gradient-primary) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
 }
 
-.course-hero-desc {
+/* Feature cards inside course page */
+.feature-card {
+  text-align: center;
+  padding: var(--space-xl);
+}
+
+.feature-icon {
+  font-size: 36px;
+  margin-bottom: var(--space-md);
+}
+
+.feature-title {
   font-size: 17px;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+}
+
+.feature-desc {
+  font-size: 14px;
   color: var(--color-text-secondary);
-  max-width: 580px;
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 /* Subjects */
