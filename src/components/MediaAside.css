@@ -1,0 +1,144 @@
+.media-aside {
+  display: block;
+  position: relative;
+}
+
+.hero-3d .media-aside {
+  position: absolute;
+  right: clamp(18px, 6vw, 80px);
+  top: 18%;
+  z-index: 999;
+}
+
+.media-card {
+  display: block;
+  width: min(520px, 40vw);
+  border-radius: 14px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  box-shadow: 0 30px 70px rgba(2,6,23,0.45);
+  overflow: hidden;
+  position: relative;
+}
+
+.media-frame {
+  background: #000;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  display: block;
+  position: relative;
+}
+
+.media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform-origin: center center;
+  animation: ken-burns 20s ease-in-out infinite alternate;
+}
+
+.media-card:hover .media-img {
+  animation-play-state: paused;
+  transform: scale(1.08);
+}
+
+.media-lightbox-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.media-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1rem;
+  pointer-events: none;
+}
+
+.media-overlay--subtle {
+  background: linear-gradient(to top, rgba(0,0,0,0.35), transparent 55%);
+}
+
+.media-overlay-label {
+  color: rgba(255,255,255,0.95);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.media-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+.media-lightbox-content {
+  position: relative;
+  z-index: 2;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+}
+
+.media-lightbox-content img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.media-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .media-card-bg { height: 180px; }
+  .media-card { width: 300px; }
+}
+
+@keyframes ken-burns {
+  0% {
+    transform: scale(1) translateY(0px) translateX(0px);
+    filter: saturate(0.98) contrast(0.98);
+  }
+  50% {
+    transform: scale(1.06) translateY(-6px) translateX(6px);
+    filter: saturate(1.02) contrast(1.02);
+  }
+  100% {
+    transform: scale(1.12) translateY(-12px) translateX(12px);
+    filter: saturate(1.05) contrast(1.05);
+  }
+}
+
+@media (max-width: 980px) {
+  .hero-3d .media-aside { display: none; }
+}

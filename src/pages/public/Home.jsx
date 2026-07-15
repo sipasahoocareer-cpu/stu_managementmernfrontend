@@ -42,65 +42,6 @@ export default function Home() {
     <div className="home">
       {/* Hero with Full Background */}
       <section className="hero-3d">
-        <div className="hero-bg-3d">
-          {/* Animated Neon SVG Background */}
-          <svg className="hero-svg-bg" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            {/* Dark Background */}
-            <defs>
-              <radialGradient id="bgGradient" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" style={{stopColor: '#1a0b2e', stopOpacity: 1}} />
-                <stop offset="100%" style={{stopColor: '#0f051e', stopOpacity: 1}} />
-              </radialGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-
-            {/* Background */}
-            <rect width="1200" height="800" fill="url(#bgGradient)"/>
-
-            {/* Neon Lines - Flowing */}
-            <g className="neon-lines" opacity="0.8">
-              <path d="M 100 0 Q 300 150, 600 100 T 1100 150" stroke="#00d9ff" strokeWidth="3" fill="none" filter="url(#glow)" className="line-flow"/>
-              <path d="M 50 100 Q 400 300, 700 200 T 1150 350" stroke="#0099ff" strokeWidth="2.5" fill="none" filter="url(#glow)" className="line-flow"/>
-              <path d="M 150 300 Q 500 400, 800 350 T 1100 500" stroke="#6633ff" strokeWidth="2" fill="none" filter="url(#glow)" className="line-flow"/>
-              <path d="M 0 500 Q 300 550, 600 500 T 1200 600" stroke="#00d9ff" strokeWidth="2.5" fill="none" filter="url(#glow)" className="line-flow"/>
-              <path d="M 200 700 Q 500 650, 800 700 T 1200 750" stroke="#ff00ff" strokeWidth="2" fill="none" filter="url(#glow)" className="line-flow"/>
-            </g>
-
-            {/* Animated Circles - Like Eyes */}
-            <g className="eye-circles">
-              <circle cx="350" cy="350" r="80" fill="none" stroke="#00d9ff" strokeWidth="3" filter="url(#glow)" opacity="0.9" className="eye-glow"/>
-              <circle cx="350" cy="350" r="75" fill="rgba(0, 217, 255, 0.1)"/>
-              <circle cx="350" cy="350" r="40" fill="none" stroke="#00d9ff" strokeWidth="2" filter="url(#glow)"/>
-              <circle cx="345" cy="345" r="15" fill="#00d9ff" className="pupil"/>
-
-              <circle cx="850" cy="350" r="80" fill="none" stroke="#ff00ff" strokeWidth="3" filter="url(#glow)" opacity="0.9" className="eye-glow"/>
-              <circle cx="850" cy="350" r="75" fill="rgba(255, 0, 255, 0.1)"/>
-              <circle cx="850" cy="350" r="40" fill="none" stroke="#ff00ff" strokeWidth="2" filter="url(#glow)"/>
-              <circle cx="855" cy="345" r="15" fill="#ff00ff" className="pupil"/>
-            </g>
-
-            {/* Floating Particles */}
-            <g className="particles">
-              <circle cx="200" cy="200" r="2" fill="#00d9ff" opacity="0.8" className="particle particle-1"/>
-              <circle cx="400" cy="150" r="1.5" fill="#0099ff" opacity="0.6" className="particle particle-2"/>
-              <circle cx="800" cy="250" r="2" fill="#ff00ff" opacity="0.7" className="particle particle-3"/>
-              <circle cx="1000" cy="300" r="1.5" fill="#00d9ff" opacity="0.6" className="particle particle-4"/>
-              <circle cx="300" cy="650" r="2" fill="#ff00ff" opacity="0.8" className="particle particle-5"/>
-              <circle cx="900" cy="600" r="1.5" fill="#0099ff" opacity="0.7" className="particle particle-6"/>
-              <circle cx="600" cy="100" r="1" fill="#00d9ff" opacity="0.5" className="particle particle-7"/>
-              <circle cx="1100" cy="500" r="1.5" fill="#ff00ff" opacity="0.6" className="particle particle-8"/>
-            </g>
-
-            {/* Bottom Glow */}
-            <ellipse cx="600" cy="750" rx="400" ry="100" fill="none" stroke="#00d9ff" strokeWidth="2" opacity="0.3" filter="url(#glow)"/>
-          </svg>
-        </div>
         {/* Welcome Text Content */}
         <div className="hero-content-3d">
           <div className="hero-welcome-container">

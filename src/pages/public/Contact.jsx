@@ -98,15 +98,44 @@ export default function Contact() {
             </p>
 
             <div className="contact-info-list">
-              {contactInfo.map(({ icon, label, value }) => (
-                <div key={label} className="contact-info-card">
-                  <span className="contact-info-icon">{icon}</span>
-                  <span>
-                    <span className="contact-info-label">{label}</span>
-                    <span className="contact-info-value">{value}</span>
-                  </span>
-                </div>
-              ))}
+              {contactInfo.map(({ icon, label, value }) => {
+                // create appropriate hrefs for phone, email and address
+                let content = null;
+                if (label === 'Phone') {
+                  // normalize number for tel: (remove spaces)
+                  const tel = value.replace(/\s+/g, '');
+                  content = (
+                    <a href={`tel:${tel}`} className="contact-info-link" aria-label={`Call ${tel}`}>
+                      {value}
+                    </a>
+                  );
+                } else if (label === 'Email') {
+                  content = (
+                    <a href={`mailto:${value}`} className="contact-info-link" aria-label={`Email ${value}`}>
+                      {value}
+                    </a>
+                  );
+                } else if (label === 'Address') {
+                  const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(value)}`;
+                  content = (
+                    <a href={maps} target="_blank" rel="noreferrer noopener" className="contact-info-link" aria-label={`Open map for ${value}`}>
+                      {value}
+                    </a>
+                  );
+                } else {
+                  content = <span className="contact-info-value">{value}</span>;
+                }
+
+                return (
+                  <div key={label} className="contact-info-card">
+                    <span className="contact-info-icon">{icon}</span>
+                    <span>
+                      <span className="contact-info-label">{label}</span>
+                      {content}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </div>
 

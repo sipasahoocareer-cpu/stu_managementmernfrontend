@@ -14,6 +14,7 @@ import Contact from './pages/public/Contact';
 import CoursePage from './pages/public/CoursePage';
 import Login from './pages/public/Login';
 import Signup from './pages/public/Signup';
+import Gallery from './pages/public/Gallery';
 
 // Student Dashboard Pages
 import StudentHome from './pages/dashboard/student/StudentHome';
@@ -47,6 +48,7 @@ function AppRoutes() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/courses" element={<CoursePage />} />
         <Route path="/courses/:classId" element={<CoursePage />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Route>

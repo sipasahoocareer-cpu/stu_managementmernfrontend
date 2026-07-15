@@ -135,6 +135,61 @@
   gap: var(--space-sm);
 }
 
+.gallery-menu {
+  min-width: 440px;
+}
+
+.gallery-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.gallery-preview-card {
+  display: block;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(99, 102, 241, 0.12);
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.gallery-preview-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.1);
+}
+
+.gallery-preview-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #f7f7fb;
+}
+
+.gallery-preview-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-fast);
+}
+
+.gallery-preview-card:hover .gallery-preview-thumb img {
+  transform: scale(1.05);
+}
+
+.gallery-preview-card span {
+  display: block;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #4b5563;
+  font-weight: 600;
+}
+.gallery-preview-card:hover .gallery-preview-thumb img {
+  transform: scale(1.05);
+}
+
 .dropdown-item {
   display: flex;
   flex-direction: column;
@@ -300,14 +355,35 @@
     gap: 8px;
   }
 
-  .navbar-logo-text {
-    display: none;
+  .navbar-logo {
+    flex: 0 0 auto;
+    align-items: center;
   }
 
   .navbar-logo-icon {
     width: 36px;
     height: 36px;
-    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar-logo-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .navbar-logo-text {
+    display: block;
+    font-size: 14px;
+    line-height: 1.2;
+    white-space: normal;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #1a1a1a;
+    font-weight: 700;
   }
 
   .navbar-links {

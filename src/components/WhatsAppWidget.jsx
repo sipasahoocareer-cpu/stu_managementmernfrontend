@@ -1,14 +1,22 @@
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaPhoneAlt, FaWhatsapp } from 'react-icons/fa';
 import './WhatsAppWidget.css';
 
 export default function WhatsAppWidget() {
   return (
     <div className="whatsapp-widget">
       <a
+        href="tel:6371723216"
+        className="whatsapp-widget-link call-widget-link"
+        aria-label="Call us"
+      >
+        <FaPhoneAlt className="whatsapp-icon" aria-hidden="true" />
+      </a>
+
+      <a
         href="https://api.whatsapp.com/send?phone=6371723216"
         target="_blank"
         rel="noreferrer noopener"
-        className="whatsapp-widget-link"
+        className="whatsapp-widget-link whatsapp-widget-link--main"
         aria-label="Chat on WhatsApp"
       >
         <FaWhatsapp className="whatsapp-icon" aria-hidden="true" />

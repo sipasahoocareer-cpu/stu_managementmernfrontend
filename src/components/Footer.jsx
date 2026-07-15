@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaXTwitter } from 'react-icons/fa6';
+import { FaInstagram } from 'react-icons/fa6';
 import { FiBookOpen, FiClock, FiMail, FiMapPin, FiPhone } from 'react-icons/fi';
 import './Footer.css';
 
@@ -50,9 +50,24 @@ export default function Footer() {
           <div className="footer-column">
             <h3 className="footer-heading">Contact Info</h3>
             <div className="footer-info">
-              <p><span className="info-icon"><FiMapPin /></span> Balianta Gram Panchayat Office</p>
-              <p><span className="info-icon"><FiMail /></span> contact@maakarakhai.com</p>
-              <p><span className="info-icon"><FiPhone /></span> +91 7848026463</p>
+              <p>
+                <span className="info-icon"><FiMapPin /></span>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Balianta Gram Panchayat Office')}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  Balianta Gram Panchayat Office
+                </a>
+              </p>
+              <p>
+                <span className="info-icon"><FiMail /></span>
+                <a href="mailto:contact@maakarakhai.com">contact@maakarakhai.com</a>
+              </p>
+              <p>
+                <span className="info-icon"><FiPhone /></span>
+                <a href="tel:+917848026463">+91 7848026463</a>
+              </p>
               <p><span className="info-icon"><FiClock /></span> 9:00 AM - 6:00 PM</p>
             </div>
           </div>
@@ -64,10 +79,16 @@ export default function Footer() {
           <p>&copy; 2023 - {year} Maa Kharakhai Ambisious Tutorial. All rights reserved.</p>
 
           <div className="social-links">
-            <a href="#" className="social-icon" aria-label="Facebook" title="Facebook"><FaFacebookF /></a>
-            <a href="#" className="social-icon" aria-label="X" title="X"><FaXTwitter /></a>
-            <a href="#" className="social-icon" aria-label="Instagram" title="Instagram"><FaInstagram /></a>
-            <a href="#" className="social-icon" aria-label="LinkedIn" title="LinkedIn"><FaLinkedinIn /></a>
+            <a
+              href="https://www.instagram.com/mkat.2023/"
+              className="social-icon"
+              aria-label="Instagram"
+              title="Instagram"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <FaInstagram />
+            </a>
           </div>
         </div>
 

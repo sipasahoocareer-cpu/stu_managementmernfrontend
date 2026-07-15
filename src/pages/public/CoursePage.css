@@ -1,22 +1,24 @@
 /* ============================================================
    COURSE PAGE
    ============================================================ */
-.course-page {}
+.course-page {
+  color: var(--color-text-primary);
+}
 
 /* Hero orb works inside page-hero-bg from PageLayout.css */
 .course-hero-orb {
   position: absolute;
-  width: 600px; height: 600px;
+  width: 540px; height: 540px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,193,7,0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, transparent 72%);
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  filter: blur(60px);
+  filter: blur(80px);
 }
 
 /* Course emoji shown in hero */
 .course-hero-emoji {
-  font-size: 72px;
+  font-size: 64px;
   animation: float 4s ease-in-out infinite;
   line-height: 1;
 }
@@ -55,40 +57,44 @@
 /* Subjects */
 .subjects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--space-md);
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-lg);
 }
 
 .subject-card {
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  padding: var(--space-lg);
-  border-left: 3px solid var(--sub-color, var(--color-accent-primary));
-  transition: all var(--transition-base);
+  padding: calc(var(--space-lg) + 0.25rem);
+  border-left: 5px solid var(--sub-color, var(--color-accent-primary));
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: var(--radius-xl);
 }
 
 .subject-card:hover {
-  transform: translateX(4px);
-  border-left-width: 4px;
+  transform: translateY(-4px);
+  border-color: rgba(59, 130, 246, 0.8);
+  box-shadow: 0 25px 70px rgba(15, 23, 42, 0.1);
 }
 
 .subject-icon {
-  width: 36px; height: 36px;
-  border-radius: var(--radius-sm);
+  width: 48px; height: 48px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
   color: #fff;
   flex-shrink: 0;
 }
 
 .subject-name {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 700;
   color: var(--color-text-primary);
 }
 
@@ -97,4 +103,86 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
+}
+
+.course-nav--centered {
+  justify-content: center;
+}
+
+.course-nav--spaced {
+  gap: 1.25rem;
+}
+
+.section-branded-notice {
+  padding: var(--space-3xl) 0;
+  background: rgba(99, 102, 241, 0.04);
+  border-radius: var(--radius-xl);
+  margin: var(--space-2xl) 0;
+}
+
+.section-header--compact {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.section-all-classes {
+  padding-top: var(--space-xl);
+}
+
+.class-scroll-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.75rem 0;
+  background: rgba(99, 102, 241, 0.04);
+  border: 1px solid rgba(99, 102, 241, 0.12);
+  border-radius: var(--radius-xl);
+}
+
+.class-scroll-row {
+  display: flex;
+  gap: 1rem;
+  min-width: max-content;
+  padding: 1rem 1.25rem;
+  scroll-snap-type: x mandatory;
+}
+
+.class-scroll-card {
+  display: inline-flex;
+  flex: 0 0 auto;
+  padding: 0.95rem 1.5rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--color-text-primary);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+  scroll-snap-align: start;
+  font-weight: 700;
+}
+
+.class-scroll-card:hover {
+  transform: translateY(-3px);
+  background: rgba(37, 99, 235, 0.12);
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+.class-scroll-card.active {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: rgba(37, 99, 235, 0.35);
+  box-shadow: 0 16px 35px rgba(59, 130, 246, 0.16);
+}
+
+.class-scroll-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.class-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(37, 99, 235, 0.4);
+  border-radius: 999px;
+}
+
+.class-scroll-wrapper::-webkit-scrollbar-track {
+  background: transparent;
 }

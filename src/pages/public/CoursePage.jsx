@@ -27,6 +27,20 @@ const subjectColors = [
   '#10b981', '#14b8a6', '#22d3ee', '#3b82f6', '#a855f7', '#84cc16',
 ];
 
+const allClasses = [
+  { id: 'class-1', label: 'Class I' },
+  { id: 'class-2', label: 'Class II' },
+  { id: 'class-3', label: 'Class III' },
+  { id: 'class-4', label: 'Class IV' },
+  { id: 'class-5', label: 'Class V' },
+  { id: 'class-6', label: 'Class VI' },
+  { id: 'class-7', label: 'Class VII' },
+  { id: 'class-8', label: 'Class VIII' },
+  { id: 'class-9', label: 'Class IX' },
+  { id: 'class-10', label: 'Class X' },
+  { id: 'pgdca', label: 'PGDCA' },
+];
+
 export default function CoursePage() {
   const { classId } = useParams();
   useEffect(() => {
@@ -106,36 +120,59 @@ export default function CoursePage() {
             </div>
           </section>
 
-          <section className="section">
-            <div className="course-nav">
+          <section className="section section-branded-notice">
+            <div className="section-header section-header--compact">
+              <h2 className="section-title">Enroll in this course</h2>
+              <p className="section-subtitle">Secure your spot for {data.name} and explore the full curriculum below.</p>
+            </div>
+            <div className="course-nav course-nav--centered course-nav--spaced">
               {prevClass ? (
-                <Link to={`/courses/class-${prevClass}`} className="btn btn-secondary">
+                <Link to={`/courses/class-${prevClass}`} className="btn btn-outline">
                   Class {prevClass}
                 </Link>
               ) : (
                 <div />
               )}
 
-              <Link to="/login" className="btn btn-primary">
+              <Link to="/login" className="btn btn-primary btn-pill btn-large">
                 Join {data.name}
               </Link>
 
               {nextClass ? (
-                <Link to={`/courses/class-${nextClass}`} className="btn btn-secondary">
+                <Link to={`/courses/class-${nextClass}`} className="btn btn-outline">
                   Class {nextClass}
                 </Link>
               ) : isPgdca ? (
-                <Link to="/courses/class-1" className="btn btn-secondary">
+                <Link to="/courses/class-1" className="btn btn-outline">
                   View Classes
                 </Link>
               ) : (
-                <Link to="/courses/pgdca" className="btn btn-secondary">
+                <Link to="/courses/pgdca" className="btn btn-outline">
                   PGDCA
                 </Link>
               )}
             </div>
           </section>
 
+          <section className="section section-all-classes">
+            <div className="section-header">
+              <h2 className="section-title">Browse All Classes</h2>
+              <p className="section-subtitle">Scroll sideways to view every available class and jump directly to the detail page.</p>
+            </div>
+            <div className="class-scroll-wrapper">
+              <div className="class-scroll-row">
+                {allClasses.map((course) => (
+                  <Link
+                    key={course.id}
+                    to={`/courses/${course.id}`}
+                    className={`class-scroll-card ${course.id === classId ? 'active' : ''}`}
+                  >
+                    {course.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>
