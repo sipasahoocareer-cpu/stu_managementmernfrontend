@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['images/ma-kharakhai-logo.svg'],
+      includeAssets: ['images/applogo.png'],
       manifest: {
         name: 'Maa Kharakhai Ambisious Tutorial',
         short_name: 'Maa Kharakhai',
@@ -18,9 +18,14 @@ export default defineConfig({
         start_url: '/',
         icons: [
           {
-            src: 'images/ma-kharakhai-logo.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
+            src: 'images/applogo.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'images/applogo.png',
+            sizes: '512x512',
+            type: 'image/png',
           },
         ],
       },
