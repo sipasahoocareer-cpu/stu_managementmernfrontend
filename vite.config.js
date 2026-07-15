@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'images/ma-kharakhai-logo.svg'],
+      includeAssets: ['images/ma-kharakhai-logo.svg'],
       manifest: {
         name: 'Maa Kharakhai Ambisious Tutorial',
         short_name: 'Maa Kharakhai',
@@ -17,11 +17,6 @@ export default defineConfig({
         display: 'standalone',
         start_url: '/',
         icons: [
-          {
-            src: 'favicon.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
-          },
           {
             src: 'images/ma-kharakhai-logo.svg',
             sizes: 'any',
