@@ -1,8 +1,36 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.svg', 'images/ma-kharakhai-logo.svg'],
+      manifest: {
+        name: 'Maa Kharakhai Ambisious Tutorial',
+        short_name: 'Maa Kharakhai',
+        description: 'A student and teacher portal with offline-ready features.',
+        theme_color: '#2563eb',
+        background_color: '#ffffff',
+        display: 'standalone',
+        start_url: '/',
+        icons: [
+          {
+            src: 'favicon.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
+          },
+          {
+            src: 'images/ma-kharakhai-logo.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
+          },
+        ],
+      },
+    }),
+  ],
   base: '/',
   server: {
     port: 5173,
