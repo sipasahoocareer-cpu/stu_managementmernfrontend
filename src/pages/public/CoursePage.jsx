@@ -64,9 +64,6 @@ export default function CoursePage() {
           <span className="page-hero-badge">Curriculum Overview</span>
           <h1 className="page-hero-title course-hero-title">{data.name}</h1>
           <p className="page-hero-subtitle">{data.desc}</p>
-          <Link to="/login" className="btn btn-primary">
-            Enroll Now
-          </Link>
         </div>
       </section>
 
@@ -117,40 +114,6 @@ export default function CoursePage() {
                   <p className="feature-desc">{desc}</p>
                 </div>
               ))}
-            </div>
-          </section>
-
-          <section className="section section-branded-notice">
-            <div className="section-header section-header--compact">
-              <h2 className="section-title">Enroll in this course</h2>
-              <p className="section-subtitle">Secure your spot for {data.name} and explore the full curriculum below.</p>
-            </div>
-            <div className="course-nav course-nav--centered course-nav--spaced">
-              {prevClass ? (
-                <Link to={`/courses/class-${prevClass}`} className="btn btn-outline">
-                  Class {prevClass}
-                </Link>
-              ) : (
-                <div />
-              )}
-
-              <Link to="/login" className="btn btn-primary btn-pill btn-large">
-                Join {data.name}
-              </Link>
-
-              {nextClass ? (
-                <Link to={`/courses/class-${nextClass}`} className="btn btn-outline">
-                  Class {nextClass}
-                </Link>
-              ) : isPgdca ? (
-                <Link to="/courses/class-1" className="btn btn-outline">
-                  View Classes
-                </Link>
-              ) : (
-                <Link to="/courses/pgdca" className="btn btn-outline">
-                  PGDCA
-                </Link>
-              )}
             </div>
           </section>
 
